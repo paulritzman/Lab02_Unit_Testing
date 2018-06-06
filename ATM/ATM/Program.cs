@@ -12,13 +12,29 @@ namespace ATM
 
         public static void Main(string[] args)
         {
-            double currentBal = ViewBalance();
-            Console.WriteLine(currentBal.ToString("C"));
+            MakeWithdrawl(4000);
+            ViewBalance();
+
+            MakeDeposit(300);
+            ViewBalance();
+
             Console.ReadLine();
         }
 
-        public static double ViewBalance()
+        public static void ViewBalance()
         {
+            Console.WriteLine($"Your current balance is {balance.ToString("C")}.\n");
+        }
+
+        public static double MakeWithdrawl(double requestAmount)
+        {
+            balance = balance - requestAmount;
+            return balance;
+        }
+
+        public static double MakeDeposit(double insertAmount)
+        {
+            balance = balance + insertAmount;
             return balance;
         }
     }

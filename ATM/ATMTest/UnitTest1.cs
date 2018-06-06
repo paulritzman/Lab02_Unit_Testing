@@ -7,9 +7,16 @@ namespace ATMTest
     public class UnitTest1
     {
         [Fact]
-        public void CanReturnBalance_5000()
+        public void CanWithdraw_1()
         {
-            Assert.Equal(5000, Program.ViewBalance());
+            Assert.Equal(4999, Program.MakeWithdrawl(1));
+        }
+
+        [Theory]
+        [InlineData(1000, 4000)]
+        public void CanWithdrawAny(double balanceAfter, double request)
+        {
+            Assert.Equal(balanceAfter, Program.MakeWithdrawl(request));
         }
     }
 }
