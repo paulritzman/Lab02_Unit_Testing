@@ -16,6 +16,7 @@ namespace ATMTest
         [InlineData(1000, 4000)]
         public void CanWithdrawAny(double balanceAfter, double request)
         {
+            Program.balance = 5000.00;
             Assert.Equal(balanceAfter, Program.MakeWithdrawl(request));
         }
     }

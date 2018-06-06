@@ -12,6 +12,11 @@ namespace ATM
 
         public static void Main(string[] args)
         {
+            Console.WriteLine("\t\tThank you for using the CF401 ATM!\n" +
+                "\tPlease use the menu below to manage your account.\n");
+
+            PrintMenuOptions();
+
             MakeWithdrawl(4000);
             ViewBalance();
 
@@ -21,7 +26,15 @@ namespace ATM
             Console.ReadLine();
         }
 
-        public static void ViewBalance()
+        private static void PrintMenuOptions()
+        {
+            Console.WriteLine("1) View your current bank account balance.\n" +
+                "2) Make a withdrawl from your account.\n" +
+                "3) Make a deposit into your account.\n" +
+                "4) Exit the ATM.");
+        }
+
+        private static void ViewBalance()
         {
             Console.WriteLine($"Your current balance is {balance.ToString("C")}.\n");
         }
