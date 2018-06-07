@@ -13,17 +13,15 @@ namespace ATM
         public static void Main(string[] args)
         {
             PrintATMGreeting();
-            PrintMenuOptions();
 
-            string menuInput = Console.ReadLine();
-            uint menuSelection = ValidateMenuInput(menuInput);
+            string menuSelection = ValidateMenuPrompt();
 
             switch (menuSelection)
             {
-                case 1:
+                case "1":
                     ViewBalance();
                     break;
-                case 2:
+                case "2":
                     PrintWithdrawalMenu();
                     string withdrawalInput = Console.ReadLine();
                     break;
@@ -48,42 +46,47 @@ namespace ATM
                 "4) Exit out of the ATM.\n");
         }
 
-        public static uint ValidateMenuInput(string menuInput)
+        public static string ValidateMenuPrompt()
         {
-            bool isValid = false;
-            uint validSelection = 0;
-
-            while (isValid == false)
+            string menuSelection = "";
+            bool menuInputValid = false;
+            while (menuInputValid == false)
             {
-                try
-                {
-                    validSelection = UInt32.Parse(menuInput);
+                PrintMenuOptions();
 
-                    if (validSelection >= 1 && validSelection <= 4)
-                    {
-                        isValid = true;
-                    }
-                    else
-                    {
-                        Console.Clear();
-                        Console.WriteLine("Sorry, that wasn't one of the menu options. " +
-                            "Please type a number between 1 and 4.\n");
-
-                        PrintMenuOptions();
-                        menuInput = Console.ReadLine();
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.Clear();
-                    Console.WriteLine($"Sorry, that wasn't one of the menu options. {e.Message}\n");
-
-                    PrintMenuOptions();
-                    menuInput = Console.ReadLine();
-                }
+                menuSelection = Console.ReadLine();
+                menuInputValid = ValidateMenuInput(menuSelection);
             }
 
-            return UInt32.Parse(menuInput);
+            return menuSelection;
+        }
+
+        public static bool ValidateMenuInput(string menuInput)
+        {
+            uint validSelection = 0;
+            try
+            {
+                validSelection = UInt32.Parse(menuInput);
+
+                if (validSelection >= 1 && validSelection <= 4)
+                {
+                    Console.Clear();
+                    return true;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Sorry, that wasn't one of the menu options. " +
+                        "Please type a number between 1 and 4.\n");
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Clear();
+                Console.WriteLine($"Sorry, that wasn't one of the menu options. {e.Message}\n");
+                return false;
+            }
         }
 
         public static void ViewBalance()
