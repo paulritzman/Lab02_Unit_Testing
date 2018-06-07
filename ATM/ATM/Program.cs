@@ -25,7 +25,7 @@ namespace ATM
                 // Loops through ATM options until user types a valid option from the menu
                 menuSelection = ValidateMenuPrompt();
 
-                // Initiate functions to perform user's desired action, based on menuSelection input
+                // Execute functions to perform user's desired action, based on menuSelection input
                 switch (menuSelection)
                 {
                     case "1": // Allows user to see their bank balance
