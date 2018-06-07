@@ -8,23 +8,31 @@ namespace ATM
 {
     public class Program
     {
+        // Starts the user off with 5000 in their bank account
         public static double balance = 5000.00;
 
         public static void Main(string[] args)
         {
+            // Print greeting to user
             PrintATMGreeting();
 
             string menuSelection = "";
 
+            // Loop through application until user hits the "4" key to exit the program
             do
             {
+                // Loop through menu prompt, presenting user with ATM options
+                // Loops until user types 1, 2, 3, or 4
                 menuSelection = ValidateMenuPrompt();
 
+                // Initiate functions to perform user's desired action, based on menuSelection input
                 switch (menuSelection)
                 {
+                    // Allows user to see their bank balance
                     case "1":
                         ViewBalance();
                         break;
+                    // Allows user to withdraw money from their account
                     case "2":
                         double requestedWithdrawal = ValidateWithdrawalPrompt();
                         if (requestedWithdrawal >= 1)
@@ -32,6 +40,7 @@ namespace ATM
                             MakeWithdrawal(requestedWithdrawal);
                         }
                         break;
+                    // Allows the user to deposit money into their account
                     case "3":
                         double requestedDeposit = ValidateDepositPrompt();
                         if (requestedDeposit >= 1)
@@ -39,13 +48,12 @@ namespace ATM
                             MakeDeposit(requestedDeposit);
                         }
                         break;
+                    // Exits from the application
                     case "4":
                         Environment.Exit(0);
                         break;
                 }
             } while (menuSelection != "4");
-
-            Console.ReadLine();
         }
 
         public static void PrintATMGreeting()
@@ -64,6 +72,7 @@ namespace ATM
                 "4) Exit out of the ATM.\n");
         }
 
+        // Calls PrintMenuOptions in a Loop until user inputs a valid option
         public static string ValidateMenuPrompt()
         {
             string menuSelection = "";
@@ -120,7 +129,9 @@ namespace ATM
                 "(Please enter a positive number, other input will take you back to the main menu.)\n\n" +
                 "Enter withdrawal amount here: ");
         }
-        
+
+        // Calls ValidateWithdrawalInput to check validity of user input for withdrawing money
+        // Converts the input string to a double and returns it, if input is valid
         public static double ValidateWithdrawalPrompt()
         {
             PrintWithdrawalMenu();
@@ -183,7 +194,9 @@ namespace ATM
                 "(Please enter a positive number, other input will take you back to the main menu.)\n\n" +
                 "Enter deposit amount here: ");
         }
-        
+
+        // Calls ValidateDepositInput to check validity of user input for depositing money
+        // Converts the input string to a double and returns it, if input is valid
         public static double ValidateDepositPrompt()
         {
             PrintDepositMenu();
