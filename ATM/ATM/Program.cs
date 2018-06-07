@@ -56,6 +56,9 @@ namespace ATM
             } while (menuSelection != "4");
         }
 
+        /// <summary>
+        /// Method used to print a greeting to the user when initially executing the application.
+        /// </summary>
         public static void PrintATMGreeting()
         {
             Console.WriteLine(
@@ -63,6 +66,9 @@ namespace ATM
                 "\tPlease use the menu below to manage your account.\n");
         }
 
+        /// <summary>
+        /// Method used to print the main ATM menu options for the user to interact with the ATM.
+        /// </summary>
         public static void PrintMenuOptions()
         {
             Console.WriteLine(
@@ -72,7 +78,12 @@ namespace ATM
                 "4) Exit out of the ATM.\n");
         }
 
-        // Calls PrintMenuOptions in a Loop until user inputs a valid option
+        /// <summary>
+        /// Helper method which contains a loop - calling PrintMenuOptions() and ValidateMenuInput()
+        /// until the user types a valid menu option.
+        /// Returns menu option selected of type: string.
+        /// </summary>
+        /// <returns>String: Menu option selected.</returns>
         public static string ValidateMenuPrompt()
         {
             string menuSelection = "";
@@ -88,6 +99,11 @@ namespace ATM
             return menuSelection;
         }
 
+        /// <summary>
+        /// Method used to determine if the user input obtained from the main ATM menu matches any menu option.
+        /// </summary>
+        /// <param name="menuInput"></param>
+        /// <returns>Boolean: True/False depending on if user input matched a valid menu option.</returns>
         public static bool ValidateMenuInput(string menuInput)
         {
             uint validSelection = 0;
@@ -116,11 +132,17 @@ namespace ATM
             }
         }
 
+        /// <summary>
+        /// Method used to print the user's current balance to the screen.
+        /// </summary>
         public static void ViewBalance()
         {
             Console.WriteLine($"Your current balance is {balance.ToString("C")}.\n");
         }
 
+        /// <summary>
+        /// Method used to print the ATM Withdrawal menu options for the user to interact with the Withdrawal feature.
+        /// </summary>
         public static void PrintWithdrawalMenu()
         {
             Console.Clear();
@@ -130,8 +152,11 @@ namespace ATM
                 "Enter withdrawal amount here: ");
         }
 
-        // Calls ValidateWithdrawalInput to check validity of user input for withdrawing money
-        // Converts the input string to a double and returns it, if input is valid
+        /// <summary>
+        /// Helper method which calls PrintWithdrawalMenu() and ValidateWithdrawalInput().
+        /// Returns amount the user wants to withdraw of type: double.
+        /// </summary>
+        /// <returns>Double: Amount user wants to withdraw from bank account.</returns>
         public static double ValidateWithdrawalPrompt()
         {
             PrintWithdrawalMenu();
@@ -145,6 +170,12 @@ namespace ATM
             return 0;
         }
         
+        /// <summary>
+        /// Method used to determine if the user input obtained from ATM Withdrawal menu can be converted to type: double.
+        /// Minimum withdrawal amount: 1.00
+        /// </summary>
+        /// <param name="withdrawalInput"></param>
+        /// <returns>Boolean: True/False depending on if user input conforms to allowed format and minimum withdrawal amount.</returns>
         public static bool ValidateWithdrawalInput(string withdrawalInput)
         {
             double validAmount = 0;
@@ -172,6 +203,11 @@ namespace ATM
             }
         }
 
+        /// <summary>
+        /// Method used to conduct the withdrawal from the user's bank account.
+        /// </summary>
+        /// <param name="requestAmount"></param>
+        /// <returns>Double: Bank account balance after withdraw request performed.</returns>
         public static double MakeWithdrawal(double requestAmount)
         {
             if ((balance - requestAmount) >= 0)
@@ -186,6 +222,9 @@ namespace ATM
             return balance;
         }
 
+        /// <summary>
+        /// Method used to print the ATM Deposit menu options for the user to interact with the Deposit feature.
+        /// </summary>
         public static void PrintDepositMenu()
         {
             Console.Clear();
@@ -195,8 +234,11 @@ namespace ATM
                 "Enter deposit amount here: ");
         }
 
-        // Calls ValidateDepositInput to check validity of user input for depositing money
-        // Converts the input string to a double and returns it, if input is valid
+        /// <summary>
+        /// Helper method which calls PrintDepositMenu() and ValidateDepsitInput().
+        /// Returns amount the user wants to deposit of type: double.
+        /// </summary>
+        /// <returns>Double: Amount user wants to deposit into bank account.</returns>
         public static double ValidateDepositPrompt()
         {
             PrintDepositMenu();
@@ -209,7 +251,13 @@ namespace ATM
 
             return 0;
         }
-        
+
+        /// <summary>
+        /// Method used to determine if the user input obtained from ATM Deposit menu can be converted to type: double.
+        /// Minimum deposit amount: 1.00
+        /// </summary>
+        /// <param name="depositInput"></param>
+        /// <returns>Boolean: True/False depending on if user input conforms to allowed format and minimum deposit amount.</returns>
         public static bool ValidateDepositInput(string depositInput)
         {
             double validAmount = 0;
@@ -236,7 +284,12 @@ namespace ATM
                 return false;
             }
         }
-        
+
+        /// <summary>
+        /// Method used to conduct the deposit into the user's bank account.
+        /// </summary>
+        /// <param name="insertAmount"></param>
+        /// <returns>Double: Bank account balance after deposit request performed.</returns>
         public static double MakeDeposit(double insertAmount)
         {
             Console.WriteLine("Deposit Successful!\n");
