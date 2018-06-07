@@ -8,48 +8,44 @@ namespace ATM
 {
     public class Program
     {
-        // Starts the user off with 5000 in their bank account
+        // Starts the user off with 5000.00 in their bank account
         public static double balance = 5000.00;
 
         public static void Main(string[] args)
         {
-            // Print greeting to user
+            // Print greeting to user when application is first executed
             PrintATMGreeting();
 
+            // Declare menuSelection outside of do-while loop so that it is only declared once
             string menuSelection = "";
 
-            // Loop through application until user hits the "4" key to exit the program
+            // Loop until user hits the "4" key from the main ATM menu to exit the program
             do
             {
-                // Loop through menu prompt, presenting user with ATM options
-                // Loops until user types 1, 2, 3, or 4
+                // Loops through ATM options until user types a valid option from the menu
                 menuSelection = ValidateMenuPrompt();
 
                 // Initiate functions to perform user's desired action, based on menuSelection input
                 switch (menuSelection)
                 {
-                    // Allows user to see their bank balance
-                    case "1":
+                    case "1": // Allows user to see their bank balance
                         ViewBalance();
                         break;
-                    // Allows user to withdraw money from their account
-                    case "2":
+                    case "2": // Allows user to withdraw money from their account
                         double requestedWithdrawal = ValidateWithdrawalPrompt();
                         if (requestedWithdrawal >= 1)
                         {
                             MakeWithdrawal(requestedWithdrawal);
                         }
                         break;
-                    // Allows the user to deposit money into their account
-                    case "3":
+                    case "3": // Allows the user to deposit money into their account
                         double requestedDeposit = ValidateDepositPrompt();
                         if (requestedDeposit >= 1)
                         {
                             MakeDeposit(requestedDeposit);
                         }
                         break;
-                    // Exits from the application
-                    case "4":
+                    case "4": // Exits from the application
                         Environment.Exit(0);
                         break;
                 }
