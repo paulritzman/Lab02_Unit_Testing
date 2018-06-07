@@ -14,6 +14,7 @@ namespace ATM
         {
             PrintATMGreeting();
 
+            // Place in while loop
             string menuSelection = ValidateMenuPrompt();
 
             switch (menuSelection)
@@ -22,10 +23,21 @@ namespace ATM
                     ViewBalance();
                     break;
                 case "2":
-                    PrintWithdrawalMenu();
-                    string withdrawalInput = Console.ReadLine();
+                    double requestedWithdrawal = ValidateWithdrawalPrompt();
+                    if (requestedWithdrawal >= 1)
+                    {
+                        MakeWithdrawal(requestedWithdrawal);
+                    }
+                    break;
+                case "3":
+                    double requestedDeposit = ValidateDepositPrompt();
+                    if (requestedDeposit >= 1)
+                    {
+                        MakeDeposit(requestedDeposit);
+                    }
                     break;
             }
+            // End while loop
 
             Console.ReadLine();
         }
@@ -103,6 +115,20 @@ namespace ATM
                 "Enter withdrawal amount here: ");
         }
 
+        // needs test
+        public static double ValidateWithdrawalPrompt()
+        {
+            PrintWithdrawalMenu();
+            string withdrawalSelection = Console.ReadLine();
+
+            if (ValidateWithdrawalInput(withdrawalSelection))
+            {
+                return double.Parse(withdrawalSelection);
+            }
+
+            return 0;
+        }
+
         public static bool ValidateWithdrawalInput(string withdrawalInput)
         {
             double validAmount = 0;
@@ -110,14 +136,14 @@ namespace ATM
             {
                 validAmount = double.Parse(withdrawalInput);
 
-                if (validAmount > 0.01)
+                if (validAmount > 1)
                 {
                     Console.Clear();
                     return true;
                 }
                 else
                 {
-                    Console.WriteLine("\nSorry, you can't withdraw less than 1 penny.\n");
+                    Console.WriteLine("\nSorry, you can't withdraw less than 1 dollar.\n");
                     return false;
                 }
             }
@@ -130,12 +156,70 @@ namespace ATM
 
         public static double MakeWithdrawal(double requestAmount)
         {
-            balance = balance - requestAmount;
+            if ((balance - requestAmount) >= 0)
+            {
+                Console.WriteLine("Withdrawal Successful!");
+                balance = balance - requestAmount;
+            }
+            else
+            {
+                Console.WriteLine("Unable to process transaction: Insufficient Funds.");
+            }
             return balance;
         }
 
+        public static void PrintDepositMenu()
+        {
+            Console.Clear();
+            Console.Write(
+                "How much money would you like to deposit?\n" +
+                "(Please enter a positive number, other input will take you back to the main menu.)\n\n" +
+                "Enter deposit amount here: ");
+        }
+
+        public static double ValidateDepositPrompt()
+        {
+            Console.Write("Test");
+            string depositSelection = Console.ReadLine();
+
+            if (ValidateDepositInput(depositSelection))
+            {
+                return double.Parse(depositSelection);
+            }
+
+            return 0;
+        }
+
+        // needs test
+        public static bool ValidateDepositInput(string depositInput)
+        {
+            double validAmount = 0;
+            try
+            {
+                validAmount = double.Parse(depositInput);
+
+                if (validAmount >= 1)
+                {
+                    Console.Clear();
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("\nSorry, you must deposit at least 1 dollar.\n");
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"\nSorry, we're unable to process your transaction. {e.Message}\n");
+                return false;
+            }
+        }
+
+        // needs test
         public static double MakeDeposit(double insertAmount)
         {
+            Console.WriteLine("Deposit Successful!");
             balance = balance + insertAmount;
             return balance;
         }
