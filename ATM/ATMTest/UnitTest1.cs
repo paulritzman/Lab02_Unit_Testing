@@ -6,11 +6,24 @@ namespace ATMTest
 {
     public class UnitTest1
     {
-        [Fact]
-        public void CanWithdraw_1()
+        [Theory]
+        [InlineData("1")]
+        [InlineData("2")]
+        [InlineData("3")]
+        [InlineData("4")]
+        public void MenuInputValidation_Any(string menuInput)
         {
-            Program.balance = 5000.00;
-            Assert.Equal(4999, Program.MakeWithdrawal(1));
+            Assert.True(Program.ValidateMenuInput(menuInput));
+        }
+
+        [Theory]
+        [InlineData("-1")]
+        [InlineData("0")]
+        [InlineData("4.2")]
+        [InlineData("blue")]
+        public void MenuInputValidation_False(string menuInput)
+        {
+            Assert.False(Program.ValidateMenuInput(menuInput));
         }
 
         [Theory]
