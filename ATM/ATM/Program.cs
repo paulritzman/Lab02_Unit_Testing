@@ -13,49 +13,20 @@ namespace ATM
         public static void Main(string[] args)
         {
             PrintATMGreeting();
-            PrintMenuOptions();
 
-            uint userSelection = 0;
-            try
+            string menuSelection = "";
+            bool menuInputValid = false;
+            while (menuInputValid == false)
             {
-                userSelection = UInt32.Parse(Console.ReadLine());
-                if (userSelection == 0 || userSelection > 4)
-                {
-                    Console.WriteLine("Please enter 1, 2, 3, or 4.");
-                }
-            }
-            catch (OverflowException)
-            {
-                Console.WriteLine("Error: Please input one of the specified options.\n");
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Error: The input type didn't match one of the specified options.\n");
+                PrintMenuOptions();
+
+                menuSelection = Console.ReadLine();
+                menuInputValid = ValidateMenuInput(menuSelection);
             }
 
-
-
-            if (userSelection == 2)
-            {
-                Console.Write("Enter the amount you would like to withdraw: ");
-
-                double requestAmount = 0.00;
-                try
-                {
-                    requestAmount = double.Parse(Console.ReadLine());
-                }
-                catch
-                {
-
-                }
-            }
-
-
-
+            Console.WriteLine("Thanks!");
 
             Console.ReadLine();
-
-
         }
 
         public static void PrintATMGreeting()
@@ -74,6 +45,34 @@ namespace ATM
                 "4) Exit out of the ATM.\n");
         }
 
+        public static bool ValidateMenuInput(string menuInput)
+        {
+            uint validSelection = 0;
+            try
+            {
+                validSelection = UInt32.Parse(menuInput);
+
+                if (validSelection >= 1 && validSelection <= 4)
+                {
+                    Console.Clear();
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("\nSorry, that wasn't one of the menu options. " +
+                        "Please type a number between 1 and 4.\n");
+
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"\nSorry, that wasn't one of the menu options. {e.Message}\n");
+
+                return false;
+            }
+        }
+
         public static void ViewBalance()
         {
             Console.WriteLine($"Your current balance is {balance.ToString("C")}.\n");
@@ -81,7 +80,6 @@ namespace ATM
 
         public static double MakeWithdrawal(double requestAmount)
         {
-            // try/catch for negative balance, throw exception
             balance = balance - requestAmount;
             return balance;
         }
