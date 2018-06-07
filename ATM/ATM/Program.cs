@@ -120,8 +120,7 @@ namespace ATM
                 "(Please enter a positive number, other input will take you back to the main menu.)\n\n" +
                 "Enter withdrawal amount here: ");
         }
-
-        // needs test
+        
         public static double ValidateWithdrawalPrompt()
         {
             PrintWithdrawalMenu();
@@ -134,7 +133,7 @@ namespace ATM
 
             return 0;
         }
-
+        
         public static bool ValidateWithdrawalInput(string withdrawalInput)
         {
             double validAmount = 0;
@@ -142,7 +141,7 @@ namespace ATM
             {
                 validAmount = double.Parse(withdrawalInput);
 
-                if (validAmount > 1)
+                if (validAmount >= 1)
                 {
                     Console.Clear();
                     return true;
@@ -184,8 +183,7 @@ namespace ATM
                 "(Please enter a positive number, other input will take you back to the main menu.)\n\n" +
                 "Enter deposit amount here: ");
         }
-
-        // needs test
+        
         public static double ValidateDepositPrompt()
         {
             PrintDepositMenu();
@@ -198,8 +196,7 @@ namespace ATM
 
             return 0;
         }
-
-        // needs test
+        
         public static bool ValidateDepositInput(string depositInput)
         {
             double validAmount = 0;
@@ -226,8 +223,7 @@ namespace ATM
                 return false;
             }
         }
-
-        // needs test
+        
         public static double MakeDeposit(double insertAmount)
         {
             Console.WriteLine("Deposit Successful!\n");
