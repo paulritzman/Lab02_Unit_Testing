@@ -13,8 +13,34 @@ namespace ATM
 
         public static void Main(string[] args)
         {
-            // Print greeting to user when application is first executed
-            PrintATMGreeting();
+            try
+            {
+                // Display notification to the user that the ATM application is loading
+                Console.WriteLine("Loading...");
+
+                // Leave loading notification on screen for 1 second
+                System.Threading.Thread.Sleep(1000);
+
+                // Throw exception as ATM is not loading in <1 second
+                throw new TimeoutException();
+            }
+            catch (TimeoutException)
+            {
+                Console.Clear();
+
+                // Display error notification, providing user feedback about extended wait time
+                Console.WriteLine("Our systems are taking longer than usual to load.");
+
+                // Leave error notification on screen for 1.5 seconds
+                System.Threading.Thread.Sleep(1500);
+            }
+            finally
+            {
+                Console.Clear();
+
+                // Print greeting to user when application is first executed
+                PrintATMGreeting();
+            }
 
             // Declare menuSelection outside of do-while loop so that it is only declared once
             string menuSelection = "";
